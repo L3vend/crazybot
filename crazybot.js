@@ -44,6 +44,7 @@ app.post('/slack', function(req,res,next) {
         text: 'Yo'
     };
 
+    console.log('slack request');
     console.log(req.body, app.get('port'));
 
     return res.status(200).json(payload);
