@@ -1,10 +1,11 @@
-var express = require('express')
+var express = require('express');
+var bodyParser = require('body-parser');
 var request = require('request');
 
 var app = express()
 app.set('port', (process.env.PORT || 5000));
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var interval = setTimeout(function() {
 
