@@ -1,0 +1,12 @@
+{
+  "name": "crazybot",
+  "version": "0.0.1",
+  "description": "A Crazy Slack Bot",
+  "main": "crazybot.js",
+  "author": "Alexandre Amyot Murray",
+  "License": "MIT",
+  "dependencies": {
+    "request": "2.78.0",
+    "express": "4.14.0"
+  }
+}
