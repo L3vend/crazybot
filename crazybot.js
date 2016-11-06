@@ -3,6 +3,8 @@ var request = require('request');
 
 var app = express()
 app.set('port', (process.env.PORT || 5000));
+app.use(express.json());
+app.use(express.urlencoded());
 
 var interval = setTimeout(function() {
 
@@ -39,13 +41,13 @@ app.listen(app.get('port'), function () {
 })
 
 app.post('/slack', function(req,res,next) {
-    //var userName = req.body.user_name ;
+    var userName = req.body.user_name ;
     var payload = {
         text: 'Yo'
     };
 
     console.log('slack request');
-    console.log(req.body, app.get('port'));
+    console.log("Username is : " , userName);
 
     return res.status(200).json(payload);
 });
