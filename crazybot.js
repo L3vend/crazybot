@@ -36,7 +36,7 @@ var dispatch_push_up = function() {
     setTimeout( function() { dispatch_push_up() ; } , next_push_up_interval_delay ) ;
 }
 
-setTimeout( function() { dispatch_push_up() ; } , next_push_up_interval_delay ) ;
+setTimeout( function() { dispatch_push_up() ; } , 1000 ) ;
 
 app.get('/', function (req, res) {
     res.send('Hello World!')
