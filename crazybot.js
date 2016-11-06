@@ -7,15 +7,14 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-var interval = setTimeout(function() {
+var slack_url = "https://hooks.slack.com/services/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"
 
-    var url = "https://hooks.slack.com/services/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"
-    var body = {
-        "text" : "hello man !!"
-    };
+var next_push_up_interval_delay = Math.floor((Math.random() * 10) + 1) * 1000 * 60 ;
 
+var dispatch_push_up = function() {
+    
     request({
-        url: url,
+        url: slack_url,
         method: "POST",
         json: true,
         headers: {
@@ -31,7 +30,13 @@ var interval = setTimeout(function() {
         }
         console.log('Upload successful!  Server responded with:', body);
     });
-}, 1000);
+
+    next_push_up_interval_delay = Math.floor((Math.random() * 10) + 1) * 1000 ;
+    console.log('Next push-up in :', next_push_up_interval_delay , 'seconds');
+    setTimeout( function() { dispatch_push_up() ; } , next_push_up_interval_delay ) ;
+}
+
+setTimeout( function() { dispatch_push_up() ; } , next_push_up_interval_delay ) ;
 
 app.get('/', function (req, res) {
     res.send('Hello World!')
