@@ -12,7 +12,8 @@ var slack_url = "https://hooks.slack.com/services/T2ZHFGKGE/B2Y68VBUY/Au7p8Aw8Kc
 var next_push_up_interval_delay = Math.floor((Math.random() * 10) + 1) * 1000 * 60 ;
 
 var dispatch_push_up = function() {
-    
+    var num_push_up = Math.floor((Math.random() * 10) + 10);
+
     request({
         url: slack_url,
         method: "POST",
@@ -22,7 +23,7 @@ var dispatch_push_up = function() {
         },
         body: {
             "username" : "crazypushup",
-            "text" : "<@slackbot> do 100 push-ups"
+            "text" : "<@slackbot> do " + num_push_up + " push-ups"
         }
     } , function optionalCallback(err, httpResponse, body) {
         if (err) {
@@ -32,7 +33,7 @@ var dispatch_push_up = function() {
     });
 
     next_push_up_interval_delay = Math.floor((Math.random() * 10) + 1) * 1000 ;
-    console.log('Next push-up in :', next_push_up_interval_delay , 'seconds');
+    console.log('Next push-up in :', next_push_up_interval_delay / 1000 , 'seconds');
     setTimeout( function() { dispatch_push_up() ; } , next_push_up_interval_delay ) ;
 }
 
