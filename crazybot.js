@@ -1,12 +1,12 @@
 var express = require('express')
+var request = require('request');
+
 var app = express()
 app.set('port', (process.env.PORT || 5000));
 
-var request = require('request');
-
 var interval = setTimeout(function() {
 
-    var url = "https://hooks.slack.com/services/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"
+    var url = "https://hooks.slack.com/services/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"
     var body = {
         "text" : "hello man !!"
     };
@@ -20,7 +20,7 @@ var interval = setTimeout(function() {
         },
         body: {
             "username" : "crazypushup",
-            "text" : "<@gfdbv> do 100 push-ups"
+            "text" : "<@slackbot> do 100 push-ups"
         }
     } , function optionalCallback(err, httpResponse, body) {
         if (err) {
@@ -30,7 +30,7 @@ var interval = setTimeout(function() {
     });
 }, 1000);
 
-app.get('/home', function (req, res) {
+app.get('/', function (req, res) {
     res.send('Hello World!')
 })
 
