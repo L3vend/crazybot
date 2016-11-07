@@ -1,18 +1,29 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var dbManager = require('./db-manager')
 
 var app = express()
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+// init database
+dbManager.init() ;
+
+// For testing purpose only
+// dbManager.clear() ;
+// dbManager.createFakeUser('slackbot') ;
+// dbManager.createFakeUser('aamurray') ;
+
 var slack_url = "https://hooks.slack.com/services/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"
 
 var next_push_up_interval_delay = Math.floor((Math.random() * 10) + 1) * 1000 * 60 ;
 
 var dispatch_push_up = function() {
-    var num_push_up = Math.floor((Math.random() * 10) + 10);
+    
+    var randomUser = dbManager.getRandomUser() ;
+    var numPushUps = Math.floor((Math.random() * 10) + 10);
 
     request({
         url: slack_url,
@@ -22,8 +33,9 @@ var dispatch_push_up = function() {
             "content-type": "application/json",
         },
         body: {
-            "username" : "crazypushup",
-            "text" : "<@slackbot> do " + num_push_up + " push-ups"
+            "username" : "crazytrainer",
+            "icon_emoji" : ":weight_lifter:" ,
+            "text" : "<@" + randomUser + "> do " + numPushUps + " push-ups"
         }
     } , function optionalCallback(err, httpResponse, body) {
         if (err) {
